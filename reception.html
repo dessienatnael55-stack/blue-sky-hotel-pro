@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102d26">
+<title>Blue Sky | Reception</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f5f2;color:#20362d}
+header{background:#102d26;color:white;padding:20px}
+header h1{margin:0;font-size:22px}
+header p{color:#d9e3dc;margin-bottom:0}
+main{max-width:1050px;margin:auto;padding:18px}
+.notice{padding:14px;background:#fff5dc;border-radius:10px;margin-bottom:18px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat,.panel{background:white;border-radius:12px;padding:17px;box-shadow:0 3px 12px #102d260b;margin-bottom:14px}
+.stat strong{display:block;font-size:28px;margin-top:8px}
+h2{font-size:19px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #d4ddd6;border-radius:7px;margin:6px 0 12px;font:inherit}
+button{padding:11px 14px;border:0;border-radius:7px;background:#174d3b;color:white;font-weight:bold;cursor:pointer}
+.secondary{background:#e6eee8;color:#174d3b}
+.order{border:1px solid #e0e6e0;border-radius:9px;padding:13px;margin:10px 0}
+.small{font-size:13px;color:#64736a;line-height:1.6}
+.pill{background:#e6eee8;color:#174d3b;padding:5px 9px;border-radius:20px;font-size:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>BLUE SKY HOTEL</h1>
+  <p>Reception Management Dashboard</p>
+</header>
+<main>
+  <div class="notice">
+    <strong>Welcome, Reception Team!</strong><br>
+    This is the dashboard interface. Live orders, secure login and notifications require Supabase setup.
+  </div>
+
+  <div class="stats">
+    <div class="stat">New Orders<strong id="newCount">0</strong></div>
+    <div class="stat">Preparing<strong id="prepCount">0</strong></div>
+    <div class="stat">Reviews<strong id="reviewCount">0</strong></div>
+    <div class="stat">Unread Messages<strong id="messageCount">0</strong></div>
+  </div>
+
+  <div class="columns">
+    <section class="panel">
+      <h2>Order Management</h2>
+      <p class="small">Orders sent from the customer website will appear here after database integration.</p>
+      <div id="orders">
+        <p class="small">No connected orders yet.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Customer Reviews</h2>
+      <p class="small">Guest ratings and feedback will appear here after database integration.</p>
+      <div id="reviews">
+        <p class="small">No connected reviews yet.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Customer Messages</h2>
+      <p class="small">Messages will appear here after the customer chat is connected.</p>
+      <div id="messages">
+        <p class="small">No connected messages yet.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Reception Notes</h2>
+      <label for="note">Write an internal note</label>
+      <textarea id="note" rows="4" placeholder="Write a reminder for reception..."></textarea>
+      <button onclick="saveNote()">Save Note on This Device</button>
+      <p class="small" id="noteStatus">Notes are stored only in this browser.</p>
+    </section>
+  </div>
+  <p class="small">Blue Sky Hotel · Reception System · 2026</p>
+</main>
+<script>
+function saveNote(){
+  const note=document.getElementById("note").value;
+  try{
+    localStorage.setItem("blueSkyReceptionNote",note);
+    document.getElementById("noteStatus").textContent="Note saved on this device.";
+  }catch(e){
+    document.getElementById("noteStatus").textContent="Unable to save note in this browser.";
+  }
+}
+try{
+  document.getElementById("note").value=
+    localStorage.getItem("blueSkyReceptionNote")||"";
+}catch(e){}
+</script>
+</body>
+</html>
